@@ -1,6 +1,6 @@
 package com.example.tripapp.utils
 
-class Event<T>(private val content: T) {
+class Event<out T>(private val content: T) {
 
     var hasBeenHandled = false
         private set
