@@ -6,14 +6,16 @@ import com.example.tripapp.utils.safeCall
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import dagger.Provides
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
-class DefaultRepository : AuthRepository {
+class DefaultAuthRepository : AuthRepository {
 
     val auth = FirebaseAuth.getInstance()
     val users = FirebaseFirestore.getInstance().collection("users")
+
 
     override suspend fun register(
         email: String,
