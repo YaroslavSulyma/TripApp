@@ -7,12 +7,16 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ActivityScoped
+import dagger.hilt.android.scopes.ViewModelScoped
+import javax.inject.Singleton
 
 @Module
-@InstallIn(ActivityComponent::class)
-abstract class AuthModule{
+@InstallIn(ViewModelComponent::class)
+object AuthModule {
 
-    @Binds
-    abstract fun bindAuthRepository(impl: DefaultAuthRepository): AuthRepository
+    @ViewModelScoped
+    @Provides
+    fun provideAuthRepository() = DefaultAuthRepository() as AuthRepository
 }
