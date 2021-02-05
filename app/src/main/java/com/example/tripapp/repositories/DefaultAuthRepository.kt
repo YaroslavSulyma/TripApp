@@ -6,14 +6,17 @@ import com.example.tripapp.utils.safeCall
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import dagger.Provides
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class DefaultRepository : AuthRepository {
+class DefaultAuthRepository : AuthRepository {
 
     val auth = FirebaseAuth.getInstance()
     val users = FirebaseFirestore.getInstance().collection("users")
+
 
     override suspend fun register(
         email: String,
@@ -32,6 +35,11 @@ class DefaultRepository : AuthRepository {
     }
 
     override suspend fun login(email: String, password: String): Resource<AuthResult> {
-        TODO("Not yet implemented")
+        return withContext(Dispatchers.IO) {
+            safeCall {
+                val result = auth.signInWithEmailAndPassword(email, password).await()
+                Resource.Success(result)
+            }
+        }
     }
 }
