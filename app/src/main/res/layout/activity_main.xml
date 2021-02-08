@@ -22,7 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:name="androidx.navigation.fragment.NavHostFragment"
-            app:defaultNavHost="true" />
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/main_nav_graph"/>
 
     </FrameLayout>
 
@@ -41,6 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginEnd="16dp"
+            app:menu="@menu/bottom_menu"
             app:itemIconTint="@drawable/bottom_nav_selector"
             android:background="#00000000"/>
 
@@ -52,6 +54,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add"
         app:layout_anchor="@id/bottomAppBar"
-        app:maxImageSize="35dp" />
+        app:maxImageSize="35dp"
+        android:contentDescription="@string/create_post" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
