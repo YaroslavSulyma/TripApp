@@ -17,7 +17,7 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCameraBinding.inflate(layoutInflater)
         return binding.root
     }

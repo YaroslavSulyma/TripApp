@@ -17,7 +17,7 @@ class CreatePostFragment : Fragment(R.layout.fragment_create_post) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCreatePostBinding.inflate(layoutInflater)
         return binding.root
     }
