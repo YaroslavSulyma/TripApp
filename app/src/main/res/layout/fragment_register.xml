@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:boxStrokeColor="@color/black"
+        app:hintTextColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/tilUsername"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintEnd_toEndOf="@+id/tilUsername"
+        app:layout_constraintStart_toStartOf="@+id/tilUsername">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etEmail"
+            style="@style/TextInputEditTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="15"
             android:hint="@string/email"
-            android:textColor="@android:color/white"
             android:inputType="textEmailAddress" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -30,16 +34,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:boxStrokeColor="@color/black"
+        app:hintTextColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintEnd_toEndOf="@+id/tilPassword"
+        app:layout_constraintStart_toStartOf="@+id/tilPassword">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etUsername"
+            style="@style/TextInputEditTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="15"
-            android:textColor="@android:color/white"
             android:hint="@string/username"
             android:inputType="text" />
 
@@ -49,16 +57,22 @@
         android:id="@+id/tilPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="16dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:boxStrokeColor="@color/black"
+        app:hintTextColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/tilRepeatPassword"
+        app:layout_constraintEnd_toEndOf="@+id/tilRepeatPassword"
+        app:layout_constraintStart_toStartOf="@+id/tilRepeatPassword"
         app:layout_constraintTop_toTopOf="@+id/guideline2">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPassword"
+            style="@style/TextInputEditTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="15"
-            android:textColor="@android:color/white"
             android:hint="@string/password"
             android:inputType="textPassword" />
 
@@ -68,32 +82,36 @@
         android:id="@+id/tilRepeatPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilPassword">
+        android:layout_marginBottom="64dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:boxStrokeColor="@color/black"
+        app:hintTextColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/btnRegister"
+        app:layout_constraintEnd_toEndOf="@+id/btnRegister"
+        app:layout_constraintStart_toStartOf="@+id/btnRegister">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etRepeatPassword"
+            style="@style/TextInputEditTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:textColor="@android:color/white"
             android:ems="15"
-            android:hint="@string/repeat_password" />
+            android:hint="@string/repeat_password"
+            android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvLogin"
+        style="@style/TextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:layout_marginBottom="32dp"
         android:text="@string/login_with_existing_account"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/tilPassword"
-        app:layout_constraintStart_toStartOf="@+id/tilPassword"
-        app:layout_constraintTop_toBottomOf="@+id/btnRegister" />
+        app:layout_constraintStart_toStartOf="@+id/tilPassword" />
 
     <ProgressBar
         android:id="@+id/registerProgressBar"
@@ -108,11 +126,16 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/DarkButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/register"
-        app:layout_constraintEnd_toEndOf="@+id/tilRepeatPassword"
-        app:layout_constraintTop_toBottomOf="@+id/tilRepeatPassword" />
+        app:layout_constraintBottom_toTopOf="@+id/tvLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -120,5 +143,17 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="@+id/tilEmail"
+        app:layout_constraintStart_toStartOf="@+id/tilEmail"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
