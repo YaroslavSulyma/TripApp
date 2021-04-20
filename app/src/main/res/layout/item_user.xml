@@ -11,6 +11,8 @@
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:src="@drawable/img_avatar"
+        app:civ_border_color="@color/black"
+        app:civ_border_width="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -18,11 +20,13 @@
         android:id="@+id/tvUsername"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:textSize="18sp"
+        android:layout_marginStart="16dp"
+        style="@style/SubTitleTextStyle"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ivProfileImage"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@tools:sample/full_names" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
