@@ -35,7 +35,4 @@
         android:name="com.example.tripapp.ui.main.fragments.CameraFragment"
         android:label="fragment_camera"
         tools:layout="@layout/fragment_camera"/>
-    <action
-        android:id="@+id/globalActionToCratePostFragment"
-        app:destination="@id/createPostFragment" />
 </navigation>

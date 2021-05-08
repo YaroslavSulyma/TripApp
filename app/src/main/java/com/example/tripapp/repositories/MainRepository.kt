@@ -1,7 +1,6 @@
 package com.example.tripapp.repositories
 
 import android.net.Uri
-import com.example.tripapp.data.entities.Coordinates
 import com.example.tripapp.utils.Resource
 
 interface MainRepository {
@@ -11,7 +10,6 @@ interface MainRepository {
         locationName: String,
         text: String,
         infoAboutCamping: String,
-        coordinates: Coordinates?,
         totalPrice: String
     ): Resource<Any>
 

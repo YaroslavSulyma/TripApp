@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tripapp.R
-import com.example.tripapp.data.entities.Coordinates
 import com.example.tripapp.repositories.MainRepository
 import com.example.tripapp.utils.Event
 import com.example.tripapp.utils.Resource
@@ -27,12 +26,18 @@ class CreatePostViewModel @Inject constructor(
     private val _createPostStatus = MutableLiveData<Event<Resource<Any>>>()
     val createPostStatus: LiveData<Event<Resource<Any>>> = _createPostStatus
 
+    private val _currentImageUri = MutableLiveData<Uri>()
+    val currentImageUri: LiveData<Uri> = _currentImageUri
+
+    fun setCurrentImageUri(uri: Uri) {
+        _currentImageUri.postValue(uri)
+    }
+
     fun createPost(
         imageUri: Uri,
         locationName: String,
         text: String,
         infoAboutCamping: String,
-        coordinates: Coordinates?,
         totalPrice: String
     ) {
         if (text.isEmpty() || locationName.isEmpty() || infoAboutCamping.isEmpty() || totalPrice.isEmpty()) {
@@ -46,7 +51,6 @@ class CreatePostViewModel @Inject constructor(
                     locationName,
                     text,
                     infoAboutCamping,
-                    coordinates,
                     totalPrice
                 )
                 _createPostStatus.postValue(Event(result))
