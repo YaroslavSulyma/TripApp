@@ -31,15 +31,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNavigationView.apply {
             background = null
-            menu.getItem(2).isEnabled = false
             setupWithNavController(navHostFragment.findNavController())
             setOnNavigationItemReselectedListener { Unit }
-        }
-
-        binding.fabNewPost.setOnClickListener {
-            navHostFragment.findNavController().navigate(
-                R.id.globalActionToCratePostFragment
-            )
         }
     }
 

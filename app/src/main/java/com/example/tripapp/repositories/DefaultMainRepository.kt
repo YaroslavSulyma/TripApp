@@ -1,14 +1,12 @@
 package com.example.tripapp.repositories
 
 import android.net.Uri
-import com.example.tripapp.data.entities.Coordinates
 import com.example.tripapp.data.entities.Post
 import com.example.tripapp.utils.Resource
 import com.example.tripapp.utils.safeCall
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import dagger.hilt.android.scopes.ActivityScoped
 import kotlinx.coroutines.Dispatchers
@@ -31,7 +29,6 @@ class DefaultMainRepository : MainRepository {
         locationName: String,
         text: String,
         infoAboutCamping: String,
-        coordinates: Coordinates?,
         totalPrice: String,
     ) = withContext(Dispatchers.IO) {
         safeCall {
@@ -45,7 +42,6 @@ class DefaultMainRepository : MainRepository {
                 locationName = locationName,
                 text = text,
                 infoAboutCamping = infoAboutCamping,
-                coordinates = coordinates,
                 totalPrice = totalPrice,
                 imageUrl = imageUrl,
                 date = System.currentTimeMillis()

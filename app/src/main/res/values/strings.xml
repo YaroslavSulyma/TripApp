@@ -53,4 +53,8 @@
     <string name="create_post">Create post</string>
     <string name="welcome_to_tripapp">Welcome to TripApp</string>
     <string name="login_in_to_continue">Login in to continue</string>
+    <string name="enter_location_name">Enter location name</string>
+    <string name="enter_coordinates_of_this_place">Enter coordinates of this place</string>
+    <string name="add_the_amount_of_money_for_this_trip">Add the amount of money for this trip</string>
+    <string name="add_info_about_camping">Add info about camping</string>
 </resources>

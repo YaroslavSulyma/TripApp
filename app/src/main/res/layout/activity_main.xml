@@ -19,12 +19,11 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/navHostFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="668dp"
             app:defaultNavHost="true"
-            app:navGraph="@navigation/main_nav_graph">
-        </androidx.fragment.app.FragmentContainerView>
+            app:navGraph="@navigation/main_nav_graph"></androidx.fragment.app.FragmentContainerView>
 
     </FrameLayout>
 
@@ -44,18 +43,10 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="16dp"
             app:menu="@menu/bottom_menu"
+            app:itemTextColor="@drawable/bottom_nav_selector"
             app:itemIconTint="@drawable/bottom_nav_selector"
             android:background="#00000000"/>
 
     </com.google.android.material.bottomappbar.BottomAppBar>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabNewPost"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_add"
-        app:layout_anchor="@id/bottomAppBar"
-        app:maxImageSize="35dp"
-        android:contentDescription="@string/create_post" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

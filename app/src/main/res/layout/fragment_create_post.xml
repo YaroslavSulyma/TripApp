@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -17,28 +18,37 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSetPostImage"
+        style="@style/DarkButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/choose_image"
+        app:layout_constraintBottom_toBottomOf="@id/ivPostImage"
         app:layout_constraintEnd_toEndOf="@id/ivPostImage"
         app:layout_constraintStart_toStartOf="@id/ivPostImage"
-        app:layout_constraintTop_toTopOf="@id/ivPostImage"
-        app:layout_constraintBottom_toBottomOf="@id/ivPostImage"/>
+        app:layout_constraintTop_toTopOf="@id/ivPostImage" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilPostText"
+        android:id="@+id/titleLocationName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="32dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:boxStrokeColor="@color/black"
+        app:hintTextColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/titlePostText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivPostImage">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etPostDescription"
+            android:id="@+id/etLocationName"
+            style="@style/TextInputEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/enter_post_text"
+            android:hint="@string/enter_location_name"
             android:inputType="textMultiLine"
             android:maxLength="200"
             android:maxLines="5" />
@@ -51,18 +61,83 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilPostText" />
+        app:layout_constraintTop_toBottomOf="@+id/titleLocationName" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnPost"
+        style="@style/DarkButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="364dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/post"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilPostText" />
+        app:layout_constraintTop_toBottomOf="@+id/titleLocationName" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/titlePostText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:boxStrokeColor="@color/black"
+        app:hintTextColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/titleLocationName"
+        app:layout_constraintStart_toStartOf="@+id/titleLocationName"
+        app:layout_constraintTop_toBottomOf="@+id/titleLocationName">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPostText"
+            style="@style/TextInputEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_post_text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/titleCampingInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:boxStrokeColor="@color/black"
+        app:hintTextColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/titlePostText"
+        app:layout_constraintStart_toStartOf="@+id/titlePostText"
+        app:layout_constraintTop_toBottomOf="@+id/titlePostText">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etCampingInfo"
+            style="@style/TextInputEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/add_info_about_camping" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/titleAmountSum"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:boxStrokeColor="@color/black"
+        app:hintTextColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/titleCampingInfo"
+        app:layout_constraintStart_toStartOf="@+id/titleCampingInfo"
+        app:layout_constraintTop_toBottomOf="@+id/titleCampingInfo">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etAmountSum"
+            style="@style/TextInputEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/add_the_amount_of_money_for_this_trip" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
