@@ -17,6 +17,7 @@ import com.bumptech.glide.RequestManager
 import com.example.tripapp.R
 import com.example.tripapp.databinding.FragmentCreatePostBinding
 import com.example.tripapp.ui.main.viewmodels.CreatePostViewModel
+import com.example.tripapp.ui.slideUpViews
 import com.example.tripapp.ui.snackbar
 import com.example.tripapp.utils.EventObserver
 import com.example.tripapp.utils.autoCleared
@@ -90,6 +91,17 @@ class CreatePostFragment : Fragment(R.layout.fragment_create_post) {
                 )
             } ?: snackbar(getString(R.string.error_no_image_chosen))
         }
+
+        slideUpViews(
+            requireContext(),
+            binding.ivPostImage,
+            binding.btnSetPostImage,
+            binding.titleLocationName,
+            binding.titlePostText,
+            binding.titleCampingInfo,
+            binding.titleAmountSum,
+            binding.btnPost
+        )
     }
 
     private fun subscribeToObservers() {

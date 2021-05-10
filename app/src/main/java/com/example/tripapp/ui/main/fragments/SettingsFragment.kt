@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.tripapp.R
 import com.example.tripapp.databinding.FragmentSettingsBinding
+import com.example.tripapp.ui.slideUpViews
 import com.example.tripapp.utils.autoCleared
 
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
@@ -24,5 +25,14 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        slideUpViews(
+            requireContext(),
+            binding.materialTextView,
+            binding.ivProfileImage,
+            binding.titleUsername,
+            binding.titleDescription,
+            binding.btnUpdateProfile
+        )
     }
 }

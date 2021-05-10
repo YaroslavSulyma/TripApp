@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/edit_your_profile"
-        app:layout_constraintStart_toStartOf="@+id/tilUsername"
+        app:layout_constraintStart_toStartOf="@+id/titleUsername"
         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -31,14 +31,14 @@
         tools:src="@tools:sample/avatars" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilUsername"
+        android:id="@+id/titleUsername"
         style="TextInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:hint="@string/username"
-        app:layout_constraintEnd_toEndOf="@+id/tilDescription"
-        app:layout_constraintStart_toStartOf="@+id/tilDescription"
+        app:layout_constraintEnd_toEndOf="@+id/titleDescription"
+        app:layout_constraintStart_toStartOf="@+id/titleDescription"
         app:layout_constraintTop_toBottomOf="@+id/ivProfileImage"
         app:startIconDrawable="@drawable/ic_person">
 
@@ -54,7 +54,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilDescription"
+        android:id="@+id/titleDescription"
         style="TextInputLayout"
         android:layout_width="0dp"
         android:layout_height="100dp"
@@ -62,7 +62,7 @@
         android:hint="@string/description"
         app:layout_constraintEnd_toEndOf="@+id/btnUpdateProfile"
         app:layout_constraintStart_toStartOf="@+id/btnUpdateProfile"
-        app:layout_constraintTop_toBottomOf="@+id/tilUsername"
+        app:layout_constraintTop_toBottomOf="@+id/titleUsername"
         app:startIconDrawable="@drawable/ic_description">
 
         <com.google.android.material.textfield.TextInputEditText
