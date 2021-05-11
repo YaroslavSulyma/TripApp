@@ -16,47 +16,49 @@
             android:id="@+id/ivPostImage"
             android:layout_width="match_parent"
             android:layout_height="250dp"
+            android:contentDescription="TODO"
             android:scaleType="centerCrop"
-            tools:src="@tools:sample/backgrounds/scenic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="TODO" />
+            tools:src="@tools:sample/backgrounds/scenic" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivAuthorProfileImage"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:src="@drawable/img_avatar"
             app:civ_border_color="@color/black"
             app:civ_border_width="2dp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvPostText"
             app:layout_constraintTop_toBottomOf="@+id/ivPostImage" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvLikedBy"
+            style="@style/TextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/ibDeletePost"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/ivAuthorProfileImage"
+            app:layout_constraintTop_toBottomOf="@+id/tvPostAuthor"
+            tools:text="@string/liked_by_yaroslav_and_120_others" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvPostAuthor"
             style="@style/TextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
             android:textColor="@color/black"
             app:layout_constraintStart_toEndOf="@+id/ivAuthorProfileImage"
             app:layout_constraintTop_toTopOf="@+id/ivAuthorProfileImage"
             tools:text="@string/example_post_username" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvLikedBy"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            app:fontFamily="@font/plusjakartasans_bold"
-            app:layout_constraintEnd_toStartOf="@+id/ibDeletePost"
-            app:layout_constraintStart_toEndOf="@+id/ivAuthorProfileImage"
-            app:layout_constraintTop_toBottomOf="@+id/tvPostAuthor"
-            tools:text="@string/liked_by_yaroslav_and_120_others" />
 
         <View
             android:id="@+id/view"
@@ -73,14 +75,13 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvPostText"
+            style="@style/TitleTextStyleWhite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            style="@style/TextStyle"
-            android:textColor="@color/black"
-            tools:text="@string/example_post_text"
-            app:layout_constraintTop_toBottomOf="@+id/view"
-            tools:layout_editor_absoluteX="8dp" />
+            app:layout_constraintBottom_toBottomOf="@+id/ivPostImage"
+            tools:layout_editor_absoluteX="8dp"
+            tools:text="This is location name" />
 
         <ImageButton
             android:id="@+id/ibLike"
@@ -92,7 +93,7 @@
             android:src="@drawable/ic_like_white"
             android:tint="@color/grey"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvPostText" />
+            app:layout_constraintTop_toBottomOf="@+id/tvLikedBy" />
 
         <ImageButton
             android:id="@+id/ibComments"
@@ -100,11 +101,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:tint="@color/grey"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_comment"
+            android:tint="@color/grey"
             app:layout_constraintStart_toEndOf="@+id/ibLike"
-            app:layout_constraintTop_toBottomOf="@+id/tvPostText" />
+            app:layout_constraintTop_toBottomOf="@+id/tvLikedBy" />
 
         <ImageButton
             android:id="@+id/ibDeletePost"
@@ -113,9 +114,10 @@
             android:layout_marginEnd="8dp"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_delete_grey"
-            app:layout_constraintBottom_toBottomOf="@+id/tvLikedBy"
+            app:layout_constraintBottom_toBottomOf="@+id/tvPostAuthor"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvLikedBy" />
+            app:layout_constraintTop_toTopOf="@+id/tvPostAuthor"
+            app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
