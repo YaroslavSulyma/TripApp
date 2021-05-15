@@ -9,13 +9,14 @@ import com.example.tripapp.data.entities.User
 import com.example.tripapp.repositories.MainRepository
 import com.example.tripapp.utils.Event
 import com.example.tripapp.utils.Resource
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainCoroutineDispatcher
 import kotlinx.coroutines.launch
 
 abstract class BasePostViewModel(
     private val repository: MainRepository,
-    private val dispatcher: MainCoroutineDispatcher = Dispatchers.Main
+    private val dispatcher: CoroutineDispatcher = Dispatchers.Main
 ) : ViewModel() {
     private val _likePostStatus = MutableLiveData<Event<Resource<Boolean>>>()
     val likePostStatus: LiveData<Event<Resource<Boolean>>> = _likePostStatus

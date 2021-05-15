@@ -16,8 +16,8 @@ data class Post(
     val imageUrl: String = "",
     val date: Long = 0L,
     @get:Exclude var isLiked: Boolean = false,
-    @get:Exclude val isLiking: Boolean = false,
-    val likedBy: List<String> = listOf()
+    @get:Exclude var isLiking: Boolean = false,
+    var likedBy: List<String> = listOf()
 )
 
 
