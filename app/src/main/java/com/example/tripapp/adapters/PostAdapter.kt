@@ -97,7 +97,7 @@ class PostAdapter @Inject constructor(
             }
             ibLike.setOnClickListener {
                 onLikeClickListener?.let { click ->
-                    click(post, holder.layoutPosition)
+                    if (!post.isLiked) click(post, holder.layoutPosition)
                 }
             }
             ibComments.setOnClickListener {
