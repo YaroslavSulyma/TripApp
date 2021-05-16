@@ -23,11 +23,11 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnToggleFollow"
+        style="@style/DarkButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:text="@string/unfollow"
-        app:layout_constraintStart_toEndOf="@+id/ivProfileImage"
+        app:layout_constraintStart_toStartOf="@+id/tvProfileDescription"
         app:layout_constraintTop_toBottomOf="@+id/tvProfileDescription" />
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -36,31 +36,40 @@
         android:layout_height="100dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        app:civ_border_color="@color/black"
+        app:civ_border_width="5dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvUsername"
+        style="@style/TextStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ivProfileImage"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/username" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvProfileDescription"
+        style="@style/TextStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:maxLines="3"
+        android:textColor="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ivProfileImage"
-        app:layout_constraintTop_toBottomOf="@+id/tvUsername" />
+        app:layout_constraintTop_toBottomOf="@+id/tvUsername"
+        tools:text="@string/description" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvYourPosts"

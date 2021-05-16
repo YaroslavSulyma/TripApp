@@ -9,30 +9,41 @@
         android:id="@+id/homeFragment"
         android:name="com.example.tripapp.ui.main.fragments.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.tripapp.ui.main.fragments.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.tripapp.ui.main.fragments.SearchFragment"
         android:label="SearchFragment"
-        tools:layout="@layout/fragment_search"/>
+        tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/createPostFragment"
         android:name="com.example.tripapp.ui.main.fragments.CreatePostFragment"
         android:label="CreatePostFragment"
-        tools:layout="@layout/fragment_create_post"/>
+        tools:layout="@layout/fragment_create_post" />
+    <action
+        android:id="@+id/globalActionToOthersProfileFragment"
+        app:destination="@+id/othersProfileFragment" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.tripapp.ui.main.fragments.SettingsFragment"
         android:label="SettingsFragment"
-        tools:layout="@layout/fragment_settings"/>
+        tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/cameraFragment"
         android:name="com.example.tripapp.ui.main.fragments.CameraFragment"
         android:label="fragment_camera"
-        tools:layout="@layout/fragment_camera"/>
+        tools:layout="@layout/fragment_camera" />
+    <fragment
+        android:id="@+id/othersProfileFragment"
+        android:name="com.example.tripapp.ui.main.fragments.OthersProfileFragment"
+        android:label="OthersProfileFragments">
+        <argument
+            android:name="uid"
+            app:argType="string" />
+    </fragment>
 </navigation>
