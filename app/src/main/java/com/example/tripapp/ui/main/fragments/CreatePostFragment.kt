@@ -20,7 +20,7 @@ import com.example.tripapp.ui.main.viewmodels.CreatePostViewModel
 import com.example.tripapp.ui.slideUpViews
 import com.example.tripapp.ui.snackbar
 import com.example.tripapp.utils.EventObserver
-import com.example.tripapp.utils.autoCleared
+import com.example.tripapp.utils.viewBinding
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,7 +32,7 @@ class CreatePostFragment : Fragment(R.layout.fragment_create_post) {
     @Inject
     lateinit var glide: RequestManager
 
-    private var binding: FragmentCreatePostBinding by autoCleared()
+    private val binding by viewBinding(FragmentCreatePostBinding::bind)
 
     private val viewModel: CreatePostViewModel by viewModels()
 
@@ -60,15 +60,6 @@ class CreatePostFragment : Fragment(R.layout.fragment_create_post) {
                 viewModel.setCurrentImageUri(it)
             }
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentCreatePostBinding.inflate(layoutInflater)
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

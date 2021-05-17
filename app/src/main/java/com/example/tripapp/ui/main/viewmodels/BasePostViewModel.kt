@@ -18,6 +18,7 @@ abstract class BasePostViewModel(
     private val repository: MainRepository,
     private val dispatcher: CoroutineDispatcher = Dispatchers.Main
 ) : ViewModel() {
+
     private val _likePostStatus = MutableLiveData<Event<Resource<Boolean>>>()
     val likePostStatus: LiveData<Event<Resource<Boolean>>> = _likePostStatus
 
@@ -28,9 +29,11 @@ abstract class BasePostViewModel(
     val likedByUsers: LiveData<Event<Resource<List<User>>>> = _likedByUsers
 
     abstract val posts: LiveData<Event<Resource<List<Post>>>>
+
     abstract fun getPosts(uid: String = "")
 
     fun getUsers(uids: List<String>) {
+        if(uids.isEmpty()) return
         _likedByUsers.postValue(Event(Resource.Loading()))
         viewModelScope.launch(dispatcher) {
             val result = repository.getUsers(uids)

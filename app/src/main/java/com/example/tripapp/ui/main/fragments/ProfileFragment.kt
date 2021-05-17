@@ -15,23 +15,14 @@ import com.example.tripapp.ui.main.viewmodels.BasePostViewModel
 import com.example.tripapp.ui.main.viewmodels.ProfileViewModel
 import com.example.tripapp.ui.snackbar
 import com.example.tripapp.utils.EventObserver
-import com.example.tripapp.utils.autoCleared
+import com.example.tripapp.utils.viewBinding
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 open class ProfileFragment : BasePostFragment(R.layout.fragment_profile) {
 
-    private var binding: FragmentProfileBinding by autoCleared()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentProfileBinding.inflate(layoutInflater)
-        return binding.root
-    }
+    private val binding by viewBinding(FragmentProfileBinding::bind)
 
     override val postProgressBar: ProgressBar
         get() = binding.profilePostsProgressBar

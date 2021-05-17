@@ -1,6 +1,5 @@
 package com.example.tripapp.ui
 
-import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 

@@ -16,11 +16,11 @@ import com.example.tripapp.R
 import com.example.tripapp.data.entities.User
 import com.example.tripapp.databinding.FragmentProfileBinding
 import com.example.tripapp.utils.EventObserver
-import com.example.tripapp.utils.autoCleared
+import com.example.tripapp.utils.viewBinding
 
 class OthersProfileFragment : ProfileFragment() {
 
-    private var binding: FragmentProfileBinding by autoCleared()
+    private val binding by viewBinding(FragmentProfileBinding::bind)
 
     private val args: OthersProfileFragmentArgs by navArgs()
 
@@ -28,15 +28,6 @@ class OthersProfileFragment : ProfileFragment() {
         get() = args.uid
 
     private var currentUser: User? = null
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentProfileBinding.inflate(layoutInflater)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

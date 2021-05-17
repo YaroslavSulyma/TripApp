@@ -14,25 +14,17 @@ import com.example.tripapp.databinding.FragmentHomeBinding
 import com.example.tripapp.ui.main.BasePostFragment
 import com.example.tripapp.ui.main.viewmodels.BasePostViewModel
 import com.example.tripapp.ui.main.viewmodels.HomeViewModel
-import com.example.tripapp.utils.autoCleared
+import com.example.tripapp.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : BasePostFragment(R.layout.fragment_home) {
 
-    private var binding: FragmentHomeBinding by autoCleared()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentHomeBinding.inflate(layoutInflater)
-        return binding.root
-    }
+    private val binding by viewBinding(FragmentHomeBinding::bind)
 
     override val postProgressBar: ProgressBar
         get() = binding.allPostsProgressBar
+
     override val basePostViewModel: BasePostViewModel
         get() {
             val vm: HomeViewModel by viewModels()
