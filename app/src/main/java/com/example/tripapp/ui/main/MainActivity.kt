@@ -2,12 +2,14 @@ package com.example.tripapp.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.viewbinding.ViewBinding
 import com.example.tripapp.R
 import com.example.tripapp.databinding.ActivityMainBinding
 import com.example.tripapp.ui.auth.AuthActivity
@@ -17,14 +19,19 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private inline fun <T : ViewBinding> AppCompatActivity.viewBinding(
+        crossinline bindingInflater: (LayoutInflater) -> T) =
+        lazy(LazyThreadSafetyMode.NONE) {
+            bindingInflater.invoke(layoutInflater)
+        }
+
+    private val binding by viewBinding(ActivityMainBinding::inflate)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment)
                 as NavHostFragment

@@ -53,35 +53,10 @@ class DefaultMainRepository : MainRepository {
             Resource.Success(Any())
         }
     }
-
-    override suspend fun getPostForFollows() = withContext(Dispatchers.IO) {
-        safeCall {
-            val uid = FirebaseAuth.getInstance().uid!!
-            val follows = getUser(uid).data!!.follows
-            val allPosts =
-                posts.whereIn("authorUid", follows).orderBy("date", Query.Direction.DESCENDING)
-                    .get().await().toObjects(Post::class.java).onEach { post ->
-                        val user = getUser(post.authorUid).data!!
-                        post.authorProfilePictureUrl = user.profilePictureUrl
-                        post.authorUsername = user.username
-                        post.isLiked = uid in post.likedBy
-                    }
-            Resource.Success(allPosts)
-        }
-    }
-
-    override suspend fun deletePost(post: Post) = withContext(Dispatchers.IO) {
-        safeCall {
-            posts.document(post.id).delete().await()
-            storage.getReferenceFromUrl(post.imageUrl).delete().await()
-            Resource.Success(post)
-        }
-    }
-
     override suspend fun getPostsForProfile(uid: String) = withContext(Dispatchers.IO) {
         safeCall {
-            val profilePost = posts.whereEqualTo("authorUid", uid)
-                .orderBy("data", Query.Direction.DESCENDING)
+            val profilePosts = posts.whereEqualTo("authorUid", uid)
+                .orderBy("date", Query.Direction.DESCENDING)
                 .get()
                 .await()
                 .toObjects(Post::class.java)
@@ -91,16 +66,15 @@ class DefaultMainRepository : MainRepository {
                     post.authorUsername = user.username
                     post.isLiked = uid in post.likedBy
                 }
-            Resource.Success(profilePost)
+            Resource.Success(profilePosts)
         }
     }
 
-    override suspend fun getUsers(uids: List<String>) = withContext(Dispatchers.IO) {
+    override suspend fun searchUser(query: String) = withContext(Dispatchers.IO) {
         safeCall {
-            val usersList = users.whereIn("uid", uids).orderBy("username").get().await().toObjects(
-                User::class.java
-            )
-            Resource.Success(usersList)
+            val userResults = users.whereGreaterThanOrEqualTo("username", query.toUpperCase(Locale.ROOT))
+                .get().await().toObjects(User::class.java)
+            Resource.Success(userResults)
         }
     }
 
@@ -109,11 +83,9 @@ class DefaultMainRepository : MainRepository {
             var isFollowing = false
             firestore.runTransaction { transaction ->
                 val currentUid = auth.uid!!
-                val currentUser =
-                    transaction.get(users.document(currentUid)).toObject(User::class.java)!!
+                val currentUser = transaction.get(users.document(currentUid)).toObject(User::class.java)!!
                 isFollowing = uid in currentUser.follows
-                val newFollows =
-                    if (isFollowing) currentUser.follows - uid else currentUser.follows + uid
+                val newFollows = if(isFollowing) currentUser.follows - uid else currentUser.follows + uid
                 transaction.update(users.document(currentUid), "follows", newFollows)
             }.await()
             Resource.Success(!isFollowing)
@@ -130,7 +102,7 @@ class DefaultMainRepository : MainRepository {
                 transaction.update(
                     posts.document(post.id),
                     "likedBy",
-                    if (uid in currentLikes) currentLikes - uid else {
+                    if(uid in currentLikes) currentLikes - uid else {
                         isLiked = true
                         currentLikes + uid
                     }
@@ -140,24 +112,50 @@ class DefaultMainRepository : MainRepository {
         }
     }
 
+    override suspend fun getPostsForFollows() = withContext(Dispatchers.IO) {
+        safeCall {
+            val uid = FirebaseAuth.getInstance().uid!!
+            val follows = getUser(uid).data!!.follows
+            val allPosts = posts.whereIn("authorUid", follows)
+                .orderBy("date", Query.Direction.DESCENDING)
+                .get()
+                .await()
+                .toObjects(Post::class.java)
+                .onEach { post ->
+                    val user = getUser(post.authorUid).data!!
+                    post.authorProfilePictureUrl = user.profilePictureUrl
+                    post.authorUsername = user.username
+                    post.isLiked = uid in post.likedBy
+                }
+            Resource.Success(allPosts)
+        }
+    }
+
+    override suspend fun deletePost(post: Post) = withContext(Dispatchers.IO) {
+        safeCall {
+            posts.document(post.id).delete().await()
+            storage.getReferenceFromUrl(post.imageUrl).delete().await()
+            Resource.Success(post)
+        }
+    }
+
+    override suspend fun getUsers(uids: List<String>) = withContext(Dispatchers.IO) {
+        safeCall {
+            val usersList = users.whereIn("uid", uids).orderBy("username").get().await()
+                .toObjects(User::class.java)
+            Resource.Success(usersList)
+        }
+    }
+
     override suspend fun getUser(uid: String) = withContext(Dispatchers.IO) {
         safeCall {
-            val user = users.document("uid").get().await().toObject(User::class.java)
+            val user = users.document(uid).get().await().toObject(User::class.java)
                 ?: throw IllegalStateException()
             val currentUid = FirebaseAuth.getInstance().uid!!
             val currentUser = users.document(currentUid).get().await().toObject(User::class.java)
                 ?: throw IllegalStateException()
             user.isFollowing = uid in currentUser.follows
             Resource.Success(user)
-        }
-    }
-
-    override suspend fun searchUser(query: String) = withContext(Dispatchers.IO) {
-        safeCall {
-            val userResults =
-                users.whereGreaterThanOrEqualTo("username", query.toUpperCase(Locale.ROOT)).get()
-                    .await().toObjects(User::class.java)
-            Resource.Success(userResults)
         }
     }
 }

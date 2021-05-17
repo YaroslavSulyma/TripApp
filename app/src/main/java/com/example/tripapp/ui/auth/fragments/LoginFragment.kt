@@ -16,23 +16,15 @@ import com.example.tripapp.ui.auth.AuthViewModel
 import com.example.tripapp.ui.main.MainActivity
 import com.example.tripapp.ui.snackbar
 import com.example.tripapp.utils.EventObserver
-import com.example.tripapp.utils.autoCleared
+import com.example.tripapp.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
-    private var binding: FragmentLoginBinding by autoCleared()
+    private val binding by viewBinding(FragmentLoginBinding::bind)
     private lateinit var viewModel: AuthViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentLoginBinding.inflate(layoutInflater)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

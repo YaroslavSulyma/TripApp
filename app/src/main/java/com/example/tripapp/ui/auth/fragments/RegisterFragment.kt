@@ -13,22 +13,14 @@ import com.example.tripapp.databinding.FragmentRegisterBinding
 import com.example.tripapp.ui.auth.AuthViewModel
 import com.example.tripapp.ui.snackbar
 import com.example.tripapp.utils.EventObserver
-import com.example.tripapp.utils.autoCleared
+import com.example.tripapp.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RegisterFragment : Fragment(R.layout.fragment_register) {
 
     private lateinit var viewModel: AuthViewModel
-    private var binding: FragmentRegisterBinding by autoCleared()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentRegisterBinding.inflate(layoutInflater)
-        return binding.root
-    }
+    private val binding by viewBinding(FragmentRegisterBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

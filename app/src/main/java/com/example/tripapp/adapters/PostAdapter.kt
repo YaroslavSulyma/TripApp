@@ -22,7 +22,8 @@ class PostAdapter @Inject constructor(
     private val glide: RequestManager
 ) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
-    class PostViewHolder(val binding: ItemPostBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class PostViewHolder(val binding: ItemPostBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         val ivPostImage: ImageView = binding.ivPostImage
         val ivAuthorProfileImage: ImageView = binding.ivAuthorProfileImage
         val tvPostAuthor: TextView = binding.tvPostAuthor
@@ -42,7 +43,6 @@ class PostAdapter @Inject constructor(
         override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
             return oldItem.id == newItem.id
         }
-
     }
 
     private val differ = AsyncListDiffer(this, diffCallback)
@@ -66,7 +66,7 @@ class PostAdapter @Inject constructor(
             glide.load(post.imageUrl).into(ivPostImage)
             glide.load(post.authorProfilePictureUrl).into(ivAuthorProfileImage)
             tvPostAuthor.text = post.authorUsername
-            tvPostText.text = post.text
+            tvPostText.text = post.locationName
             val likeCount = post.likedBy.size
             tvLikedBy.text = when {
                 likeCount <= 0 -> "No Likes"
@@ -97,7 +97,7 @@ class PostAdapter @Inject constructor(
             }
             ibLike.setOnClickListener {
                 onLikeClickListener?.let { click ->
-                    if (!post.isLiked) click(post, holder.layoutPosition)
+                    if (!post.isLiking) click(post, holder.layoutPosition)
                 }
             }
             ibComments.setOnClickListener {

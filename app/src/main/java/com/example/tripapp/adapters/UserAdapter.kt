@@ -16,10 +16,9 @@ class UserAdapter @Inject constructor(
     private val glide: RequestManager
 ) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
-    class UserViewHolder(val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
-        val ivPostImage: ImageView = binding.ivProfileImage
+    inner class UserViewHolder(val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
+        val ivProfilePicture: ImageView = binding.ivProfileImage
         val tvUsername: TextView = binding.tvUsername
-
     }
 
     private val diffCallback = object : DiffUtil.ItemCallback<User>() {
@@ -52,7 +51,7 @@ class UserAdapter @Inject constructor(
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val user = users[position]
         holder.apply {
-            glide.load(user.profilePictureUrl).into(binding.ivProfileImage)
+            glide.load(user.profilePictureUrl).into(ivProfilePicture)
 
             tvUsername.text = user.username
             itemView.setOnClickListener {
