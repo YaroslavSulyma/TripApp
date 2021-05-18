@@ -11,7 +11,6 @@ import com.example.tripapp.utils.Event
 import com.example.tripapp.utils.Resource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainCoroutineDispatcher
 import kotlinx.coroutines.launch
 
 abstract class BasePostViewModel(

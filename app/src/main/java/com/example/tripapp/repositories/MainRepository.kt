@@ -1,6 +1,7 @@
 package com.example.tripapp.repositories
 
 import android.net.Uri
+import com.example.tripapp.data.entities.Comment
 import com.example.tripapp.data.entities.Post
 import com.example.tripapp.data.entities.User
 import com.example.tripapp.utils.Resource
@@ -30,4 +31,10 @@ interface MainRepository {
     suspend fun toggleFollowForUser(uid: String): Resource<Boolean>
 
     suspend fun searchUser(query: String): Resource<List<User>>
+
+    suspend fun createComment(commentText: String, postId: String): Resource<Comment>
+
+    suspend fun deleteComment(comment: Comment): Resource<Comment>
+
+    suspend fun getCommentsForPost(postId: String): Resource<List<Comment>>
 }

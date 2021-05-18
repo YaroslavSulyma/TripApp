@@ -47,7 +47,7 @@ class CreatePostFragment : Fragment(R.layout.fragment_create_post) {
         }
 
         override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
-            return CropImage.getActivityResult(intent).uri
+            return CropImage.getActivityResult(intent)?.uri
         }
     }
 
