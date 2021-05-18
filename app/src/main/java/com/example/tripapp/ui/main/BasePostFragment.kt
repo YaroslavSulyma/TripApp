@@ -7,7 +7,9 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.RequestManager
 import com.example.tripapp.adapters.PostAdapter
+import com.example.tripapp.adapters.UserAdapter
 import com.example.tripapp.ui.main.dialogs.DeletePostDialog
+import com.example.tripapp.ui.main.dialogs.LikedByDialog
 import com.example.tripapp.ui.main.viewmodels.BasePostViewModel
 import com.example.tripapp.ui.snackbar
 import com.example.tripapp.utils.EventObserver
@@ -48,9 +50,14 @@ abstract class BasePostFragment(
                 }
             }.show(childFragmentManager, null)
         }
+
+        postAdapter.setOnLikedByClickListener { post ->
+            basePostViewModel.getUsers(post.likedBy)
+        }
     }
 
     private fun subscribeToObservers() {
+
         basePostViewModel.deletePostStatus.observe(viewLifecycleOwner, EventObserver(
             onError = {
                 snackbar(it)
@@ -58,6 +65,7 @@ abstract class BasePostFragment(
         ) { deletedPost ->
             postAdapter.posts -= deletedPost
         })
+
         basePostViewModel.likePostStatus.observe(viewLifecycleOwner, EventObserver(
             onError = {
                 curLikedIndex?.let { index ->
@@ -72,12 +80,12 @@ abstract class BasePostFragment(
                     postAdapter.notifyItemChanged(index)
                 }
             },
-
-            ) { isLiked ->
+        ) { isLiked ->
             curLikedIndex?.let { index ->
                 val uid = FirebaseAuth.getInstance().uid!!
                 postAdapter.posts[index].apply {
                     this.isLiked = isLiked
+                    isLiking = false
                     if (isLiked) {
                         likedBy += uid
                     } else {
@@ -87,6 +95,16 @@ abstract class BasePostFragment(
                 postAdapter.notifyItemChanged(index)
             }
         })
+
+        basePostViewModel.likedByUsers.observe(viewLifecycleOwner, EventObserver(
+            onError = { snackbar(it) }
+        ) { users ->
+            val userAdapter = UserAdapter(glide)
+            userAdapter.users = users
+            LikedByDialog(userAdapter).show(childFragmentManager, null)
+
+        })
+
         basePostViewModel.posts.observe(
             viewLifecycleOwner, EventObserver(
                 onError = {

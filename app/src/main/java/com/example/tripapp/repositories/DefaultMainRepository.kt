@@ -1,6 +1,7 @@
 package com.example.tripapp.repositories
 
 import android.net.Uri
+import com.example.tripapp.data.entities.Comment
 import com.example.tripapp.data.entities.Post
 import com.example.tripapp.data.entities.User
 import com.example.tripapp.utils.Resource
@@ -53,6 +54,7 @@ class DefaultMainRepository : MainRepository {
             Resource.Success(Any())
         }
     }
+
     override suspend fun getPostsForProfile(uid: String) = withContext(Dispatchers.IO) {
         safeCall {
             val profilePosts = posts.whereEqualTo("authorUid", uid)
@@ -72,8 +74,9 @@ class DefaultMainRepository : MainRepository {
 
     override suspend fun searchUser(query: String) = withContext(Dispatchers.IO) {
         safeCall {
-            val userResults = users.whereGreaterThanOrEqualTo("username", query.toUpperCase(Locale.ROOT))
-                .get().await().toObjects(User::class.java)
+            val userResults =
+                users.whereGreaterThanOrEqualTo("username", query.toUpperCase(Locale.ROOT))
+                    .get().await().toObjects(User::class.java)
             Resource.Success(userResults)
         }
     }
@@ -83,9 +86,11 @@ class DefaultMainRepository : MainRepository {
             var isFollowing = false
             firestore.runTransaction { transaction ->
                 val currentUid = auth.uid!!
-                val currentUser = transaction.get(users.document(currentUid)).toObject(User::class.java)!!
+                val currentUser =
+                    transaction.get(users.document(currentUid)).toObject(User::class.java)!!
                 isFollowing = uid in currentUser.follows
-                val newFollows = if(isFollowing) currentUser.follows - uid else currentUser.follows + uid
+                val newFollows =
+                    if (isFollowing) currentUser.follows - uid else currentUser.follows + uid
                 transaction.update(users.document(currentUid), "follows", newFollows)
             }.await()
             Resource.Success(!isFollowing)
@@ -102,7 +107,7 @@ class DefaultMainRepository : MainRepository {
                 transaction.update(
                     posts.document(post.id),
                     "likedBy",
-                    if(uid in currentLikes) currentLikes - uid else {
+                    if (uid in currentLikes) currentLikes - uid else {
                         isLiked = true
                         currentLikes + uid
                     }
@@ -156,6 +161,47 @@ class DefaultMainRepository : MainRepository {
                 ?: throw IllegalStateException()
             user.isFollowing = uid in currentUser.follows
             Resource.Success(user)
+        }
+    }
+
+    override suspend fun createComment(commentText: String, postId: String) =
+        withContext(Dispatchers.IO) {
+            safeCall {
+                val uid = auth.uid!!
+                val commentId = UUID.randomUUID().toString()
+                val user = getUser(uid).data!!
+                val comment = Comment(
+                    commentId,
+                    postId,
+                    uid,
+                    user.username,
+                    user.profilePictureUrl,
+                    commentText
+                )
+                comments.document(commentId).set(comment).await()
+                Resource.Success(comment)
+            }
+        }
+
+    override suspend fun deleteComment(comment: Comment) = withContext(Dispatchers.IO) {
+        safeCall {
+            comments.document(comment.commentId).delete().await()
+            Resource.Success(comment)
+        }
+    }
+
+    override suspend fun getCommentsForPost(postId: String) = withContext(Dispatchers.IO) {
+        safeCall {
+            val commentsForPost = comments.whereEqualTo("postId", postId)
+                .orderBy("date", Query.Direction.DESCENDING)
+                .get()
+                .await().toObjects(Comment::class.java)
+                .onEach { comment ->
+                    val user = getUser(comment.uid).data!!
+                    comment.username = user.username
+                    comment.profilePictureUrl = user.profilePictureUrl
+                }
+            Resource.Success(commentsForPost)
         }
     }
 }
