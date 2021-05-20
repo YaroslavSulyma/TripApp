@@ -5,7 +5,9 @@ import android.view.View
 import android.widget.ProgressBar
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.RequestManager
+import com.example.tripapp.R
 import com.example.tripapp.adapters.PostAdapter
 import com.example.tripapp.adapters.UserAdapter
 import com.example.tripapp.ui.main.dialogs.DeletePostDialog
@@ -53,6 +55,12 @@ abstract class BasePostFragment(
 
         postAdapter.setOnLikedByClickListener { post ->
             basePostViewModel.getUsers(post.likedBy)
+        }
+
+        postAdapter.setOnCommentsClickListener { comment ->
+            findNavController().navigate(R.id.globalActionToCommentDialog, Bundle().apply {
+                putString("postId", comment.id)
+            })
         }
     }
 
