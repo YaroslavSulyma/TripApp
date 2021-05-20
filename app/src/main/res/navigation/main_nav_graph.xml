@@ -28,6 +28,9 @@
     <action
         android:id="@+id/globalActionToOthersProfileFragment"
         app:destination="@+id/othersProfileFragment" />
+    <action
+        android:id="@+id/globalActionToCommentDialog"
+        app:destination="@+id/commentDialog" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.tripapp.ui.main.fragments.SettingsFragment"
@@ -46,4 +49,12 @@
             android:name="uid"
             app:argType="string" />
     </fragment>
+    <dialog
+        android:id="@+id/commentDialog"
+        android:name="com.example.tripapp.ui.main.dialogs.CommentDialog"
+        android:label="CommentDialog" >
+        <argument
+            android:name="postId"
+            app:argType="string" />
+    </dialog>
 </navigation>

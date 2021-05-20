@@ -57,4 +57,5 @@
     <string name="enter_coordinates_of_this_place">Enter coordinates of this place</string>
     <string name="add_the_amount_of_money_for_this_trip">Add the amount of money for this trip</string>
     <string name="add_info_about_camping">Add info about camping</string>
+    <string name="comment">Comment</string>
 </resources>

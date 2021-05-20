@@ -3,6 +3,7 @@ package com.example.tripapp.repositories
 import android.net.Uri
 import com.example.tripapp.data.entities.Comment
 import com.example.tripapp.data.entities.Post
+import com.example.tripapp.data.entities.ProfileUpdate
 import com.example.tripapp.data.entities.User
 import com.example.tripapp.utils.Resource
 
@@ -37,4 +38,7 @@ interface MainRepository {
     suspend fun deleteComment(comment: Comment): Resource<Comment>
 
     suspend fun getCommentsForPost(postId: String): Resource<List<Comment>>
+
+    suspend fun updateProfile(profileUpdate: ProfileUpdate): Resource<Any>
+    suspend fun updateProfilePicture(uid: String, imageUri: Uri): Uri?
 }

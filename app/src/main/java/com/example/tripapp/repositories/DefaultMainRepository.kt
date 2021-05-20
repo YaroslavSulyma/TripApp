@@ -3,7 +3,9 @@ package com.example.tripapp.repositories
 import android.net.Uri
 import com.example.tripapp.data.entities.Comment
 import com.example.tripapp.data.entities.Post
+import com.example.tripapp.data.entities.ProfileUpdate
 import com.example.tripapp.data.entities.User
+import com.example.tripapp.utils.Constants.DEFAULT_PROFILE_PICTURE_URL
 import com.example.tripapp.utils.Resource
 import com.example.tripapp.utils.safeCall
 import com.google.firebase.auth.FirebaseAuth
@@ -51,6 +53,33 @@ class DefaultMainRepository : MainRepository {
                 date = System.currentTimeMillis()
             )
             posts.document(postId).set(post).await()
+            Resource.Success(Any())
+        }
+    }
+
+    override suspend fun updateProfilePicture(uid: String, imageUri: Uri) =
+        withContext(Dispatchers.IO) {
+            val storageRef = storage.getReference(uid)
+            val user = getUser(uid).data!!
+            if (user.profilePictureUrl != DEFAULT_PROFILE_PICTURE_URL) {
+                storage.getReferenceFromUrl(user.profilePictureUrl).delete().await()
+            }
+            storageRef.putFile(imageUri).await().metadata?.reference?.downloadUrl?.await()
+        }
+
+    override suspend fun updateProfile(profileUpdate: ProfileUpdate) = withContext(Dispatchers.IO) {
+        safeCall {
+            val imageUri = profileUpdate.profilePictureUri?.let { uri ->
+                updateProfilePicture(profileUpdate.uidToUpdate, uri).toString()
+            }
+            val map = mutableMapOf(
+                "username" to profileUpdate.username,
+                "description" to profileUpdate.description
+            )
+            imageUri?.let { url ->
+                map["profilePictureUrl"] = url
+            }
+            users.document(profileUpdate.uidToUpdate).update(map.toMap()).await()
             Resource.Success(Any())
         }
     }
