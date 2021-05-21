@@ -7,6 +7,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +21,7 @@ import javax.inject.Inject
 
 class PostAdapter @Inject constructor(
     private val glide: RequestManager
-) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
+) : PagingDataAdapter<Post, PostAdapter.PostViewHolder>(Companion) {
 
     inner class PostViewHolder(val binding: ItemPostBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -34,7 +35,7 @@ class PostAdapter @Inject constructor(
         val ibDeletePost: ImageButton = binding.ibDeletePost
     }
 
-    private val diffCallback = object : DiffUtil.ItemCallback<Post>() {
+    companion object : DiffUtil.ItemCallback<Post>() {
 
         override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
@@ -45,23 +46,13 @@ class PostAdapter @Inject constructor(
         }
     }
 
-    private val differ = AsyncListDiffer(this, diffCallback)
-
-    var posts: List<Post>
-        get() = differ.currentList
-        set(value) = differ.submitList(value)
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = ItemPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PostViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        return posts.size
-    }
-
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        val post = posts[position]
+        val post = getItem(position) ?: return
         holder.apply {
             glide.load(post.imageUrl).into(ivPostImage)
             glide.load(post.authorProfilePictureUrl).into(ivAuthorProfileImage)

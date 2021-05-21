@@ -1,12 +1,11 @@
 package com.example.tripapp.ui.main.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tripapp.R
 import com.example.tripapp.databinding.FragmentProfileBinding
@@ -18,14 +17,15 @@ import com.example.tripapp.utils.EventObserver
 import com.example.tripapp.utils.viewBinding
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 open class ProfileFragment : BasePostFragment(R.layout.fragment_profile) {
 
     private val binding by viewBinding(FragmentProfileBinding::bind)
 
-    override val postProgressBar: ProgressBar
-        get() = binding.profilePostsProgressBar
     override val basePostViewModel: BasePostViewModel
         get() {
             val vm: ProfileViewModel by viewModels()
@@ -46,6 +46,19 @@ open class ProfileFragment : BasePostFragment(R.layout.fragment_profile) {
 
         binding.btnToggleFollow.isVisible = false
         viewModel.loadProfile(uid)
+
+        lifecycleScope.launch {
+            viewModel.getPagingFlow(uid).collect {
+                postAdapter.submitData(it)
+            }
+        }
+
+        lifecycleScope.launch {
+            postAdapter.loadStateFlow.collectLatest {
+                binding.profilePostsProgressBar?.isVisible = it.refresh is LoadState.Loading ||
+                        it.append is LoadState.Loading
+            }
+        }
     }
 
     private fun setupRecyclerView() = binding.rvPosts.apply {
@@ -73,5 +86,12 @@ open class ProfileFragment : BasePostFragment(R.layout.fragment_profile) {
                 glide.load(user.profilePictureUrl).into(binding.ivProfileImage)
             }
         )
+        basePostViewModel.deletePostStatus.observe(viewLifecycleOwner, EventObserver(
+            onError = {
+                snackbar(it)
+            }
+        ) { deletedPost ->
+            postAdapter.refresh()
+        })
     }
 }
