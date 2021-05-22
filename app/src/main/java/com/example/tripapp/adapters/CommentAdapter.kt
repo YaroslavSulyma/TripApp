@@ -19,8 +19,7 @@ class CommentAdapter @Inject constructor(
     private val glide: RequestManager
 ) : RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
 
-    inner class CommentViewHolder(val binding: ItemCommentBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class CommentViewHolder(val binding: ItemCommentBinding) : RecyclerView.ViewHolder(binding.root) {
         val tvCommentUsername: TextView = binding.tvCommentUsername
         val tvComment: TextView = binding.tvComment
         val ibDeleteComment: ImageButton = binding.ibDeleteComment
@@ -28,15 +27,13 @@ class CommentAdapter @Inject constructor(
     }
 
     private val diffCallback = object : DiffUtil.ItemCallback<Comment>() {
-
-        override fun areItemsTheSame(oldItem: Comment, newItem: Comment): Boolean {
+        override fun areContentsTheSame(oldItem: Comment, newItem: Comment): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
         }
 
-        override fun areContentsTheSame(oldItem: Comment, newItem: Comment): Boolean {
+        override fun areItemsTheSame(oldItem: Comment, newItem: Comment): Boolean {
             return oldItem.commentId == newItem.commentId
         }
-
     }
 
     private val differ = AsyncListDiffer(this, diffCallback)
@@ -58,9 +55,9 @@ class CommentAdapter @Inject constructor(
         val comment = comments[position]
         holder.apply {
             glide.load(comment.profilePictureUrl).into(ivCommentUserProfilePicture)
+            ibDeleteComment.isVisible = comment.uid == FirebaseAuth.getInstance().uid!!
             tvCommentUsername.text = comment.username
             tvComment.text = comment.comment
-            ibDeleteComment.isVisible = comment.uid == FirebaseAuth.getInstance().uid!!
             tvCommentUsername.setOnClickListener {
                 onUserClickListener?.let { click ->
                     click(comment)
@@ -85,5 +82,3 @@ class CommentAdapter @Inject constructor(
         onDeleteCommentClickListener = listener
     }
 }
-
-

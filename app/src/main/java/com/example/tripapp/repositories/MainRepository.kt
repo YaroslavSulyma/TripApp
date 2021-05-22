@@ -37,7 +37,7 @@ interface MainRepository {
 
     suspend fun deleteComment(comment: Comment): Resource<Comment>
 
-    suspend fun getCommentsForPost(postId: String): Resource<List<Comment>>
+    suspend fun getCommentForPost(postId: String): Resource<List<Comment>>
 
     suspend fun updateProfile(profileUpdate: ProfileUpdate): Resource<Any>
     suspend fun updateProfilePicture(uid: String, imageUri: Uri): Uri?

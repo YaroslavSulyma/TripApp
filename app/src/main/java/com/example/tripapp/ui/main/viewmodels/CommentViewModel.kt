@@ -25,11 +25,11 @@ class CommentViewModel @Inject constructor(
     private val _deleteCommentStatus = MutableLiveData<Event<Resource<Comment>>>()
     val deleteCommentStatus: LiveData<Event<Resource<Comment>>> = _deleteCommentStatus
 
-    private val _commentForPost = MutableLiveData<Event<Resource<List<Comment>>>>()
-    val commentForPost: LiveData<Event<Resource<List<Comment>>>> = _commentForPost
+    private val _commentsForPost = MutableLiveData<Event<Resource<List<Comment>>>>()
+    val commentsForPost: LiveData<Event<Resource<List<Comment>>>> = _commentsForPost
 
     fun createComment(commentText: String, postId: String) {
-        if (commentText.isEmpty()) return
+        if(commentText.isEmpty()) return
         _createCommentStatus.postValue(Event(Resource.Loading()))
         viewModelScope.launch(dispatcher) {
             val result = repository.createComment(commentText, postId)
@@ -46,10 +46,11 @@ class CommentViewModel @Inject constructor(
     }
 
     fun getCommentsForPost(postId: String) {
-        _commentForPost.postValue(Event(Resource.Loading()))
+        _commentsForPost.postValue(Event(Resource.Loading()))
         viewModelScope.launch(dispatcher) {
-            val result = repository.getCommentsForPost(postId)
-            _commentForPost.postValue(Event(result))
+            val result = repository.getCommentForPost(postId)
+            _commentsForPost.postValue(Event(result))
         }
     }
+
 }

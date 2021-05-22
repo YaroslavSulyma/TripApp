@@ -3,6 +3,7 @@ package com.example.tripapp.ui.main.dialogs
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,9 +44,8 @@ class CommentDialog : DialogFragment() {
     private val viewModel: CommentViewModel by viewModels()
 
     private lateinit var dialogView: View
-
     private lateinit var rvComments: RecyclerView
-    private lateinit var etComments: EditText
+    private lateinit var etComment: EditText
     private lateinit var btnComment: Button
     private lateinit var commentProgressBar: ProgressBar
 
@@ -65,10 +65,9 @@ class CommentDialog : DialogFragment() {
         )
 
         rvComments = dialogView.findViewById(R.id.rvComments)
-        etComments = dialogView.findViewById(R.id.etComment)
+        etComment = dialogView.findViewById(R.id.etComment)
         btnComment = dialogView.findViewById(R.id.btnComment)
         commentProgressBar = dialogView.findViewById(R.id.commentProgressBar)
-
         return MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.comments)
             .setView(dialogView)
@@ -83,9 +82,9 @@ class CommentDialog : DialogFragment() {
         viewModel.getCommentsForPost(args.postId)
 
         btnComment.setOnClickListener {
-            val commentText = etComments.text.toString()
+            val commentText = etComment.text.toString()
             viewModel.createComment(commentText, args.postId)
-            etComments.text?.clear()
+            etComment.text?.clear()
         }
 
         commentAdapter.setOnDeleteCommentClickListener { comment ->
@@ -94,8 +93,9 @@ class CommentDialog : DialogFragment() {
 
         commentAdapter.setOnUserClickListener { comment ->
             if (FirebaseAuth.getInstance().uid!! == comment.uid) {
-                (requireActivity() as MainActivity).findViewById<BottomNavigationView>(R.id.bottomNavigationView).selectedItemId =
-                    R.id.profileFragment
+                (requireActivity() as MainActivity)
+                    .findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+                    .selectedItemId = R.id.profileFragment
                 return@setOnUserClickListener
             }
             findNavController().navigate(
@@ -105,11 +105,12 @@ class CommentDialog : DialogFragment() {
     }
 
     private fun subscribeToObservers() {
-        viewModel.commentForPost.observe(
+        viewModel.commentsForPost.observe(
             viewLifecycleOwner, EventObserver(
                 onError = {
                     commentProgressBar.isVisible = false
                     snackbar(it)
+                    Log.e("Tag", it)
                 },
                 onLoading = {
                     commentProgressBar.isVisible = true
