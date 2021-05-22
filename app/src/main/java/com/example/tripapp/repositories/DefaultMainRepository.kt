@@ -174,11 +174,14 @@ class DefaultMainRepository : MainRepository {
     }
 
     override suspend fun getUsers(uids: List<String>) = withContext(Dispatchers.IO) {
-        safeCall {
+        val chunks = uids.chunked(10)
+        val resultList = mutableListOf<User>()
+        chunks.forEach { chunk ->
             val usersList = users.whereIn("uid", uids).orderBy("username").get().await()
                 .toObjects(User::class.java)
-            Resource.Success(usersList)
+            resultList.addAll(usersList)
         }
+        Resource.Success(resultList.toList())
     }
 
     override suspend fun getUser(uid: String) = withContext(Dispatchers.IO) {
@@ -200,12 +203,13 @@ class DefaultMainRepository : MainRepository {
                 val commentId = UUID.randomUUID().toString()
                 val user = getUser(uid).data!!
                 val comment = Comment(
-                    commentId,
-                    postId,
-                    uid,
-                    user.username,
-                    user.profilePictureUrl,
-                    commentText
+                    commentId = commentId,
+                    postId = postId,
+                    uid = uid,
+                    username = user.username,
+                    profilePictureUrl = user.profilePictureUrl,
+                    comment = commentText,
+                    date = System.currentTimeMillis()
                 )
                 comments.document(commentId).set(comment).await()
                 Resource.Success(comment)
@@ -219,12 +223,14 @@ class DefaultMainRepository : MainRepository {
         }
     }
 
-    override suspend fun getCommentsForPost(postId: String) = withContext(Dispatchers.IO) {
+    override suspend fun getCommentForPost(postId: String) = withContext(Dispatchers.IO) {
         safeCall {
-            val commentsForPost = comments.whereEqualTo("postId", postId)
+            val commentsForPost = comments
+                .whereEqualTo("postId", postId)
                 .orderBy("date", Query.Direction.DESCENDING)
                 .get()
-                .await().toObjects(Comment::class.java)
+                .await()
+                .toObjects(Comment::class.java)
                 .onEach { comment ->
                     val user = getUser(comment.uid).data!!
                     comment.username = user.username
