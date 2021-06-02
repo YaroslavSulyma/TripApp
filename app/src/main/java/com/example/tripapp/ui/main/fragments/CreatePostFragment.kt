@@ -68,7 +68,7 @@ class CreatePostFragment : Fragment(R.layout.fragment_create_post) {
         binding.btnSetPostImage.setOnClickListener {
             cropContent.launch(null)
         }
-        binding.ivPostImage.setOnClickListener {
+        binding.ivImage.setOnClickListener {
             cropContent.launch(null)
         }
         binding.btnPost.setOnClickListener {
@@ -76,16 +76,16 @@ class CreatePostFragment : Fragment(R.layout.fragment_create_post) {
                 viewModel.createPost(
                     uri,
                     binding.etLocationName.text.toString(),
-                    binding.etPostText.toString(),
-                    binding.etCampingInfo.toString(),
-                    binding.etAmountSum.toString()
+                    binding.etPostText.text.toString(),
+                    binding.etCampingInfo.text.toString(),
+                    binding.etAmountSum.text.toString()
                 )
             } ?: snackbar(getString(R.string.error_no_image_chosen))
         }
 
         slideUpViews(
             requireContext(),
-            binding.ivPostImage,
+            binding.ivImage,
             binding.btnSetPostImage,
             binding.titleLocationName,
             binding.titlePostText,
@@ -99,7 +99,7 @@ class CreatePostFragment : Fragment(R.layout.fragment_create_post) {
         viewModel.currentImageUri.observe(viewLifecycleOwner) {
             currentImageUri = it
             binding.btnSetPostImage.isVisible = false
-            glide.load(currentImageUri).into(binding.ivPostImage)
+            glide.load(currentImageUri).into(binding.ivImage)
         }
 
         viewModel.createPostStatus.observe(

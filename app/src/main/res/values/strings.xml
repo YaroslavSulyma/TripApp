@@ -58,4 +58,14 @@
     <string name="add_the_amount_of_money_for_this_trip">Add the amount of money for this trip</string>
     <string name="add_info_about_camping">Add info about camping</string>
     <string name="comment">Comment</string>
+    <string name="date">22.04.2021</string>
+    <string name="amount_money_for_this_trip">Amount money for this trip</string>
+    <string name="info_about_camping">Info about camping</string>
+    <string name="post_text">Post text</string>
+    <string name="post_image">Post image</string>
+    <string name="landmark_recognition">Landmark recognition</string>
+    <string name="recognize">Recognize</string>
+    <string name="location_name">Location name</string>
+    <string name="latitude">Latitude:</string>
+    <string name="longitude">Longitude:</string>
 </resources>

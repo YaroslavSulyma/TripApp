@@ -239,4 +239,12 @@ class DefaultMainRepository : MainRepository {
             Resource.Success(commentsForPost)
         }
     }
+
+    override suspend fun getPost(postId: String) = withContext(Dispatchers.IO) {
+        safeCall {
+            val post = posts.document(postId).get().await().toObject(Post::class.java)
+                ?: throw IllegalStateException()
+            Resource.Success(post)
+        }
+    }
 }

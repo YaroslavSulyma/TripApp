@@ -4,5 +4,10 @@
     <item android:id="@+id/logout"
         android:title="@string/logout"
         app:showAsAction="never"/>
+    <item android:id="@+id/camera"
+        android:icon="@drawable/image_search"
+        android:iconTint="@color/black"
+        android:title="@string/landmark_recognition"
+        app:showAsAction="ifRoom"/>
 
 </menu>

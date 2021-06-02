@@ -1,14 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.fragments.CameraFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvLongitude"
+        style="@style/SubTitleTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="@+id/tvTitleLongitude"
+        app:layout_constraintStart_toStartOf="@+id/tvTitleLongitude"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleLongitude"
+        tools:text="@tools:sample/lorem" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTitleLongitude"
+        style="@style/SubTitleTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/longitude"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/tvLatitude"
+        app:layout_constraintStart_toStartOf="@+id/tvLatitude"
+        app:layout_constraintTop_toBottomOf="@+id/tvLatitude" />
+
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/backgrounds/scenic" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSetImage"
+        style="@style/DarkButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_image"
+        app:layout_constraintBottom_toBottomOf="@id/ivImage"
+        app:layout_constraintEnd_toEndOf="@id/ivImage"
+        app:layout_constraintStart_toStartOf="@id/ivImage"
+        app:layout_constraintTop_toTopOf="@id/ivImage" />
+
+    <ProgressBar
+        android:id="@+id/createPostProgressBar2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTitleLocationName"
+        style="@style/SubTitleTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/location_name"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivImage" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvLocationName"
+        style="@style/SubTitleTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="@+id/tvTitleLocationName"
+        app:layout_constraintStart_toStartOf="@+id/tvTitleLocationName"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleLocationName"
+        tools:text="@tools:sample/lorem" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTitleLatitude"
+        style="@style/SubTitleTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/latitude"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/tvLocationName"
+        app:layout_constraintStart_toStartOf="@+id/tvLocationName"
+        app:layout_constraintTop_toBottomOf="@+id/tvLocationName" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvLatitude"
+        style="@style/SubTitleTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="@+id/tvTitleLatitude"
+        app:layout_constraintStart_toStartOf="@+id/tvTitleLatitude"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleLatitude"
+        tools:text="@tools:sample/lorem" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnRecognize"
+        style="@style/DarkButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/recognize"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tvLongitude"
+        app:layout_constraintTop_toBottomOf="@+id/tvLongitude" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
