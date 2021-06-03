@@ -31,6 +31,12 @@
     <action
         android:id="@+id/globalActionToCommentDialog"
         app:destination="@+id/commentDialog" />
+    <action
+        android:id="@+id/globalActionToCameraRecognition"
+        app:destination="@+id/cameraFragment" />
+    <action
+        android:id="@+id/globalActionToPostFragment"
+        app:destination="@+id/postFragment" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.tripapp.ui.main.fragments.SettingsFragment"
@@ -52,9 +58,20 @@
     <dialog
         android:id="@+id/commentDialog"
         android:name="com.example.tripapp.ui.main.dialogs.CommentDialog"
-        android:label="CommentDialog" >
+        android:label="CommentDialog">
         <argument
             android:name="postId"
             app:argType="string" />
     </dialog>
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="com.example.tripapp.ui.main.fragments.PostFragment"
+        android:label="PostFragment">
+        <argument
+            android:name="postId"
+            app:argType="string" />
+        <argument
+            android:name="authorId"
+            app:argType="string" />
+    </fragment>
 </navigation>

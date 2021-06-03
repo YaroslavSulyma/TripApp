@@ -1,14 +1,12 @@
 package com.example.tripapp.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
@@ -16,7 +14,6 @@ import com.example.tripapp.R
 import com.example.tripapp.data.entities.Post
 import com.example.tripapp.databinding.ItemPostBinding
 import com.google.firebase.auth.FirebaseAuth
-import org.w3c.dom.Text
 import javax.inject.Inject
 
 class PostAdapter @Inject constructor(
@@ -101,6 +98,11 @@ class PostAdapter @Inject constructor(
                     click(post)
                 }
             }
+            ivPostImage.setOnClickListener {
+                onPostClickListener?.let { click ->
+                    click(post)
+                }
+            }
         }
     }
 
@@ -109,6 +111,7 @@ class PostAdapter @Inject constructor(
     private var onCommentsClickListener: ((Post) -> Unit)? = null
     private var onLikedByClickListener: ((Post) -> Unit)? = null
     private var onDeletePostClickListener: ((Post) -> Unit)? = null
+    private var onPostClickListener: ((Post) -> Unit)? = null
 
     fun setOnLikeClickListener(listener: (Post, Int) -> Unit) {
         onLikeClickListener = listener
@@ -128,5 +131,9 @@ class PostAdapter @Inject constructor(
 
     fun setOnCommentsClickListener(listener: (Post) -> Unit) {
         onCommentsClickListener = listener
+    }
+
+    fun setOnPostClickListener(listener: (Post) -> Unit) {
+        onPostClickListener = listener
     }
 }

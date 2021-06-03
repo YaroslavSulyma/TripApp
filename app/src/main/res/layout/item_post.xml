@@ -101,9 +101,9 @@
             android:layout_marginTop="8dp"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_comment"
-            android:tint="@color/grey"
             app:layout_constraintStart_toEndOf="@+id/ibLike"
-            app:layout_constraintTop_toBottomOf="@+id/tvLikedBy" />
+            app:layout_constraintTop_toBottomOf="@+id/tvLikedBy"
+            app:tint="@color/grey" />
 
         <ImageButton
             android:id="@+id/ibDeletePost"

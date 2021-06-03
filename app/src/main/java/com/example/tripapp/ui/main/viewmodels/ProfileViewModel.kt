@@ -33,8 +33,6 @@ class ProfileViewModel @Inject constructor(
     private val _followStatus = MutableLiveData<Event<Resource<Boolean>>>()
     val followStatus: LiveData<Event<Resource<Boolean>>> = _followStatus
 
-    private val _posts = MutableLiveData<Event<Resource<List<Post>>>>()
-
     fun getPagingFlow(uid: String): Flow<PagingData<Post>> {
         val pagingSource = ProfilePostPagingSource(FirebaseFirestore.getInstance(), uid)
         return Pager(PagingConfig(PAGE_SIZE)) {

@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="668dp"
             app:defaultNavHost="true"
-            app:navGraph="@navigation/main_nav_graph"></androidx.fragment.app.FragmentContainerView>
+            app:navGraph="@navigation/main_nav_graph" />
 
     </FrameLayout>
 

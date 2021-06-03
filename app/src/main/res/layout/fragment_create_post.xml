@@ -6,15 +6,17 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/ivPostImage"
+        android:id="@+id/ivImage"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/white"
+        android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="16:9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/backgrounds/scenic" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSetPostImage"
@@ -22,10 +24,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/choose_image"
-        app:layout_constraintBottom_toBottomOf="@id/ivPostImage"
-        app:layout_constraintEnd_toEndOf="@id/ivPostImage"
-        app:layout_constraintStart_toStartOf="@id/ivPostImage"
-        app:layout_constraintTop_toTopOf="@id/ivPostImage" />
+        app:layout_constraintBottom_toBottomOf="@id/ivImage"
+        app:layout_constraintEnd_toEndOf="@id/ivImage"
+        app:layout_constraintStart_toStartOf="@id/ivImage"
+        app:layout_constraintTop_toTopOf="@id/ivImage" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/titleLocationName"
@@ -41,7 +43,7 @@
         app:layout_constraintBottom_toTopOf="@+id/titlePostText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivPostImage">
+        app:layout_constraintTop_toBottomOf="@+id/ivImage">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etLocationName"

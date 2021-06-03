@@ -2,8 +2,6 @@ package com.example.tripapp.ui.main
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ProgressBar
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.RequestManager
@@ -49,6 +47,13 @@ abstract class BasePostFragment(
                     basePostViewModel.deletePost(post)
                 }
             }.show(childFragmentManager, null)
+        }
+
+        postAdapter.setOnPostClickListener { post ->
+            findNavController().navigate(R.id.globalActionToPostFragment, Bundle().apply {
+                putString("postId", post.id)
+                putString("authorId", post.authorUid)
+            })
         }
 
         postAdapter.setOnLikedByClickListener { post ->
