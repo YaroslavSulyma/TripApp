@@ -9,12 +9,11 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
+import androidx.core.view.isVisible
 import com.bumptech.glide.RequestManager
 import com.example.tripapp.R
 import com.example.tripapp.databinding.FragmentCameraBinding
@@ -28,7 +27,6 @@ import com.google.gson.*
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.tasks.await
 import java.io.ByteArrayOutputStream
 import javax.inject.Inject
 
@@ -54,6 +52,10 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
         }
 
         override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
+            binding.tvLongitude.text = ""
+            binding.tvLatitude.text = ""
+            binding.tvLocationName.text = ""
+            binding.tvScore.text = ""
             return CropImage.getActivityResult(intent)?.uri
         }
     }
@@ -79,6 +81,7 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
             cropContent.launch(null)
         }
         binding.btnRecognize.setOnClickListener {
+            binding.createPostProgressBar.isVisible = true
             encodeImage()
             sendRequest()
         }
@@ -115,7 +118,6 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
     }
 
     private fun sendRequest() {
-        // Create json request to cloud vision
         var request = JsonObject()
         val image = JsonObject()
         image.add("content", JsonPrimitive(base64encoded))
@@ -130,11 +132,10 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
         annotateImage(request.toString())
             .addOnCompleteListener { task ->
                 if (!task.isSuccessful) {
-                    // Task failed with an exception
-                    Log.e("Tag", task.exception.toString())
+                    binding.createPostProgressBar.isVisible = false
+                    snackbar("Can't recognize this place")
                 } else {
-                    // Task completed successfully
-                    Log.e("Tag", task.toString())
+                    getData(task)
                 }
             }
     }
@@ -144,11 +145,14 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
             val labelObj = label.asJsonObject
             val landmarkName = labelObj["description"]
             val score = labelObj["score"]
-            // Multiple locations are possible, e.g., the location of the depicted
-            // landmark and the location the picture was taken.
+            binding.createPostProgressBar.isVisible = false
+            binding.tvLocationName.text = landmarkName.toString()
+            binding.tvScore.text = score.toString()
             for (loc in labelObj["locations"].asJsonArray) {
                 val latitude = loc.asJsonObject["latLng"].asJsonObject["latitude"]
                 val longitude = loc.asJsonObject["latLng"].asJsonObject["longitude"]
+                binding.tvLatitude.text = latitude.toString()
+                binding.tvLongitude.text = longitude.toString()
             }
         }
     }

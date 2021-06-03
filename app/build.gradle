@@ -55,9 +55,9 @@ dependencies {
 
     //Firebase ML Kit
     implementation platform('com.google.firebase:firebase-bom:25.12.0')
-    implementation 'com.google.firebase:firebase-functions:20.0.0'
-    implementation 'com.google.firebase:firebase-functions-ktx'
     implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.firebase:firebase-functions-ktx:20.0.0'
+    implementation 'com.google.firebase:firebase-functions:20.0.0'
     
     //Pagination
     def paging_version = "3.0.0-alpha08"

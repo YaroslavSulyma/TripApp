@@ -56,7 +56,7 @@
         app:layout_constraintTop_toTopOf="@id/ivImage" />
 
     <ProgressBar
-        android:id="@+id/createPostProgressBar2"
+        android:id="@+id/createPostProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
@@ -117,6 +117,32 @@
         app:layout_constraintTop_toBottomOf="@+id/tvTitleLatitude"
         tools:text="@tools:sample/lorem" />
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTitleScore"
+        style="@style/SubTitleTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/score"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/tvLongitude"
+        app:layout_constraintStart_toStartOf="@+id/tvLongitude"
+        app:layout_constraintTop_toBottomOf="@+id/tvLongitude" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvScore"
+        style="@style/SubTitleTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:maxLines="1"
+        android:maxLength="6"
+        app:layout_constraintEnd_toEndOf="@+id/tvTitleScore"
+        app:layout_constraintStart_toStartOf="@+id/tvTitleScore"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleScore"
+        tools:text="@tools:sample/lorem/random" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnRecognize"
         style="@style/DarkButtonStyle"
@@ -125,6 +151,6 @@
         android:text="@string/recognize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/tvLongitude"
-        app:layout_constraintTop_toBottomOf="@+id/tvLongitude" />
+        app:layout_constraintTop_toBottomOf="@+id/tvScore" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
