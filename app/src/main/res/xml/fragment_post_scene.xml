@@ -16,7 +16,7 @@
         <OnSwipe />
     </Transition>
 
-    <ConstraintSet android:id="@+id/start">
+    <ConstraintSet>
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
