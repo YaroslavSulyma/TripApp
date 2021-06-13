@@ -41,6 +41,7 @@ abstract class BasePostFragment(
             basePostViewModel.toggleLikeForPost(post)
         }
 
+
         postAdapter.setOnDeletePostClickListener { post ->
             DeletePostDialog().apply {
                 setPositiveListener {
@@ -53,6 +54,12 @@ abstract class BasePostFragment(
             findNavController().navigate(R.id.globalActionToPostFragment, Bundle().apply {
                 putString("postId", post.id)
                 putString("authorId", post.authorUid)
+            })
+        }
+
+        postAdapter.setOnUserClickListener { post ->
+            findNavController().navigate(R.id.globalActionToOthersProfileFragment, Bundle().apply {
+                putString("uid", post.authorUid)
             })
         }
 

@@ -4,9 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.transition.ChangeBounds
 import android.transition.TransitionManager
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat

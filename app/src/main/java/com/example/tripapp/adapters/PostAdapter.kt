@@ -70,12 +70,12 @@ class PostAdapter @Inject constructor(
             )
             tvPostAuthor.setOnClickListener {
                 onUserClickListener?.let { click ->
-                    click(post.authorUid)
+                    click(post)
                 }
             }
             ivAuthorProfileImage.setOnClickListener {
                 onUserClickListener?.let { click ->
-                    click(post.authorUid)
+                    click(post)
                 }
             }
             tvLikedBy.setOnClickListener {
@@ -107,7 +107,7 @@ class PostAdapter @Inject constructor(
     }
 
     private var onLikeClickListener: ((Post, Int) -> Unit)? = null
-    private var onUserClickListener: ((String) -> Unit)? = null
+    private var onUserClickListener: ((Post) -> Unit)? = null
     private var onCommentsClickListener: ((Post) -> Unit)? = null
     private var onLikedByClickListener: ((Post) -> Unit)? = null
     private var onDeletePostClickListener: ((Post) -> Unit)? = null
@@ -117,7 +117,7 @@ class PostAdapter @Inject constructor(
         onLikeClickListener = listener
     }
 
-    fun setOnUserClickListener(listener: (String) -> Unit) {
+    fun setOnUserClickListener(listener: (Post) -> Unit) {
         onUserClickListener = listener
     }
 
